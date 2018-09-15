@@ -52,11 +52,21 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="REX-bk-CKv">
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                        </imageView>
                                                     </subviews>
                                                 </view>
                                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="REX-bk-CKv" firstAttribute="top" secondItem="4No-Sn-SLF" secondAttribute="top" id="Hch-XY-jjo"/>
+                                                    <constraint firstAttribute="bottom" secondItem="REX-bk-CKv" secondAttribute="bottom" id="Ooa-xr-fro"/>
+                                                    <constraint firstItem="REX-bk-CKv" firstAttribute="leading" secondItem="4No-Sn-SLF" secondAttribute="leading" id="TMn-qs-d2H"/>
+                                                    <constraint firstAttribute="trailing" secondItem="REX-bk-CKv" secondAttribute="trailing" id="to0-dF-ya1"/>
+                                                </constraints>
                                                 <connections>
                                                     <outlet property="numLabel" destination="naE-hF-i75" id="cYG-Xp-fP7"/>
+                                                    <outlet property="puzzlePieceImage" destination="REX-bk-CKv" id="Ty0-1W-zRe"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -84,6 +94,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="3hy-gZ-Duz" id="SPe-Uz-glx"/>
+                        <outlet property="contentView" destination="Itq-ja-goF" id="56b-lp-2NL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

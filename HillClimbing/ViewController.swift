@@ -10,17 +10,30 @@ import UIKit
 class Cell: UICollectionViewCell{
     
     @IBOutlet weak var numLabel: UITextField!
+    @IBOutlet weak var puzzlePieceImage: UIImageView!
 }
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var contentView: UIView!
     let correctAns = [1,2,3,8,0,4,7,6,5]
     var currentArr = [0,3,1,5,2,4,6,7,8]
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.layer.cornerRadius = 10.0
+        collectionView.clipsToBounds = true
+        var tempArr = [Int]()
+        for _ in 0..<currentArr.count
+        {
+            let rand = Int(arc4random_uniform(UInt32(currentArr.count)))
+            tempArr.append(currentArr[rand])
+            currentArr.remove(at: rand)
+            print(tempArr)
+        }
+        currentArr = tempArr
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -30,11 +43,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
         cell.numLabel.text = "\(currentArr[indexPath.item])"
+        cell.puzzlePieceImage.image = UIImage(named: "9x9 \(indexPath.item)")
         return cell
     }
     
     @IBAction func begin(_ sender: Any) {
         var heuristic = calcHeuristic(currentArr,correctAns)
+        
+        
         if heuristic > 0 {
             var voidIndex = Int()
             for (index,value) in currentArr.enumerated(){
@@ -46,19 +62,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             swapCells(start: voidIndex, end: indexToSwap)
             heuristic = calcHeuristic(currentArr, correctAns)
         }
-//        var voidIndex = Int()
-//        for (index,value) in currentArr.enumerated(){
-//            if value == 0{
-//                voidIndex = index
-//            }
-//        }
-//        let indexToSwap = bestCase(voidIndex)
-//        swapCells(start: voidIndex, end: indexToSwap)
-//        heuristic = calcHeuristic(currentArr, correctAns)
-//        pau
-//        if heuristic > 0{
-//            self.begin(sender)
-//        }
     }
     
     func swapCells(start: Int, end: Int){
@@ -97,7 +100,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }
         }
         for (index,small) in heuristicIndexes{
-            if smallest == small || smallest == small + 1{
+            if smallest == small /*|| smallest == small + 1*/{
                 randHeuristics.append(index)
             }
         }
